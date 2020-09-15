@@ -17,7 +17,7 @@ class SsmPatchStack(core.Stack):
             association_name='inventory-all-instances',
             apply_only_at_cron_interval=False,
             schedule_expression="rate(30 minutes)",
-            #compliance_severity="CRITICAL",
+            compliance_severity="CRITICAL",
             targets=[
                  _ssm.CfnAssociation.TargetProperty(
                      key='InstanceIds', values=['*']
@@ -30,11 +30,11 @@ class SsmPatchStack(core.Stack):
         ssm_ass.add_override('Properties.Parameters.awsComponents', ['Enabled'])
         ssm_ass.add_override('Properties.Parameters.billingInfo', ['Enabled'])
         ssm_ass.add_override('Properties.Parameters.customInventory', ['Enabled'])
-        ssm_ass.add_override('Properties.Parameters.files', ['-'])
+        ssm_ass.add_override('Properties.Parameters.files', [''])
         ssm_ass.add_override('Properties.Parameters.instanceDetailedInformation', ['Enabled'])
         ssm_ass.add_override('Properties.Parameters.networkConfig', ['Enabled'])
         ssm_ass.add_override('Properties.Parameters.services', ['Enabled'])
-        ssm_ass.add_override('Properties.Parameters.windowsRegistry', ['-'])
+        ssm_ass.add_override('Properties.Parameters.windowsRegistry', [''])
         ssm_ass.add_override('Properties.Parameters.windowsRoles', ['Enabled'])
         ssm_ass.add_override('Properties.Parameters.windowsUpdates', ['Enabled'])
 
