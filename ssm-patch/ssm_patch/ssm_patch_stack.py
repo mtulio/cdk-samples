@@ -10,36 +10,33 @@ class SsmPatchStack(core.Stack):
         super().__init__(scope, id, **kwargs)
 
         # 1 - setup SSM association
-        # aws ssm create-association --name "AWS-GatherSoftwareInventory" --targets "Key=instanceids,Values=*"
         ssm_ass = _ssm.CfnAssociation(
             self, 'inventory-all-instances',
             name='AWS-GatherSoftwareInventory',
             document_version="$DEFAULT",
             association_name='inventory-all-instances',
-            #apply_only_at_cron_interval=True,
+            apply_only_at_cron_interval=False,
             schedule_expression="rate(30 minutes)",
-            compliance_severity="CRITICAL",
+            #compliance_severity="CRITICAL",
             targets=[
                  _ssm.CfnAssociation.TargetProperty(
-                     key='instanceids', values=['*']
+                     key='InstanceIds', values=['*']
                 )
-            ],
-            parameters={"applications": "Enabled"}
+            ]
         )
-            # parameters=[
-            #     {
-            #         "applications": "Enabled",
-            #         "awsComponents": "Enabled",
-            #         "billingInfo": "Enabled",
-            #         "customInventory": "Enabled",
-            #         "files": "-",
-            #         "instanceDetailedInformation": "Enabled",
-            #         "services": "Enabled",
-            #         "windowsRegistry": "Enabled",
-            #         "windowsRoles": "Enabled",
-            #         "windowsUpdates": "Enabled"
-            #     }
-            # ]
+        # Workarround to apply Parameters values
+        ## Ref https://github.com/aws/aws-cdk/issues/4057
+        ssm_ass.add_override('Properties.Parameters.applications', ['Enabled'])
+        ssm_ass.add_override('Properties.Parameters.awsComponents', ['Enabled'])
+        ssm_ass.add_override('Properties.Parameters.billingInfo', ['Enabled'])
+        ssm_ass.add_override('Properties.Parameters.customInventory', ['Enabled'])
+        ssm_ass.add_override('Properties.Parameters.files', ['-'])
+        ssm_ass.add_override('Properties.Parameters.instanceDetailedInformation', ['Enabled'])
+        ssm_ass.add_override('Properties.Parameters.networkConfig', ['Enabled'])
+        ssm_ass.add_override('Properties.Parameters.services', ['Enabled'])
+        ssm_ass.add_override('Properties.Parameters.windowsRegistry', ['-'])
+        ssm_ass.add_override('Properties.Parameters.windowsRoles', ['Enabled'])
+        ssm_ass.add_override('Properties.Parameters.windowsUpdates', ['Enabled'])
 
         # # 2 - create maintenance window
         # # 3 - configure patching

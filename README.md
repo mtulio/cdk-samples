@@ -13,4 +13,6 @@ npm install -g aws-cdk
 
 ```
 cd new-sample && cdk init app --language python
+./env/bin/pip install -r requirements.txt
 ```
+
