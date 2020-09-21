@@ -19,11 +19,8 @@ setuptools.setup(
     packages=setuptools.find_packages(where="ssm_patch"),
 
     install_requires=[
-        "aws-cdk.core==1.62.0",
-        "aws-cdk.aws-ssm==1.62.0",
-        "aws-cdk.aws-s3==1.62.0",
-        "aws-cdk.aws-config==1.62.0",
-        "boto3"
+        "aws-cdk.core==1.63.0",
+        "aws-cdk.aws-ssm==1.63.0"
     ],
 
     python_requires=">=3.6",
