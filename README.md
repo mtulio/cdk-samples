@@ -11,7 +11,7 @@ npm install -g aws-cdk
 
 ## Manage Projects
 
-### Create a new Project (new-stample)
+### Create a new Project (new-sample)
 
 ```bash
 mkdir new-sample
