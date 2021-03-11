@@ -9,8 +9,24 @@
 npm install -g aws-cdk
 ```
 
-## Create a new Sample
+## Manage Projects
 
-```
+### Create a new Project (new-sample)
+
+```bash
+mkdir new-sample
 cd new-sample && cdk init app --language python
+./env/bin/pip install -r requirements.txt
+```
+
+### Generate CloudFormation Template
+
+```bash
+cdk synth
+```
+
+### Deploy Project
+
+```bash
+cdk deploy
 ```
